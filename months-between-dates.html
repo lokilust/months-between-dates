@@ -5,22 +5,43 @@
 <title>months-between-dates</title>
 </head>
 <body>
-  <script type = "text/javascript">
-    function monthDiff(dt1, dt2) 
-     {
-
-      var diffMonth =(dt2.getTime() - dt1.getTime()) / 1000;
-       diffMonth /= (60 * 60 * 24 * 7 * 4);
-      return Math.abs(Math.round(diff));
-
-     }
-
-    dt1 = new Date("2019-11-27");
-    dt2 = new Date("2019-06-28");
-
-    var month_differnece = monthDiff(dt1, dt2)
-    document.write( "calculate difference between two dates in month javascript :- " + month_differnece ); 
-
-  </script>  
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+<script src="http://momentjs.com/downloads/moment-with-locales.js"></script>
+<script>
+function calculateDate() {
+var datefrom = moment($("#datefrom").val(), 'DD/MM/YYYY');
+var dateto = moment($("#dateto").val(), 'DD/MM/YYYY');
+var days = dateto.diff(datefrom, 'days');
+alert(convertMonthsAndDays(days));
+}
+function convertMonthsAndDays(diff) {
+// The string we're working with to create the representation
+var str = '';
+// Map lengths of `diff` to different time periods
+// var values = [[' year', 365], [' month', 30], [' day', 1]];
+var values = [[' month', 30], [' day', 1]];
+// Iterate over the values...
+for (var i = 0; i < values.length; i++) {
+var amount = Math.floor(diff / values[i][1]);
+// ... and find the largest time value that fits into the diff
+if (amount >= 1) {
+// If we match, add to the string ('s' is for pluralization)
+str += amount + values[i][0] + (amount > 1 ? 's' : '') + ' ';
+// and subtract from the diff
+diff -= amount * values[i][1];
+}
+}
+return str;
+}
+</script>
+ 
+ 
+ 
+<div>
+<p><strong>Date From:</strong><input type="text" name="datefrom" id="datefrom"></p>
+<p><strong>Date To:</strong><input type="text" name="dateto" id="dateto"></p>
+<p>
+<input type="button" name="calculate" id="calculate" onclick="calculateDate();" value="Total" /></p>
+</div>  
 </body>
 </html>
