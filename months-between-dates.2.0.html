@@ -1,0 +1,46 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#datepicker1").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: "mm-d-y"
+            });
+            $("#datepicker2").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: "mm-d-y"
+            });
+        });
+        function MonthDifference(d1, d2) {
+            var months;
+            months = (d2.getFullYear() - d1.getFullYear()) * 12;
+            months -= d1.getMonth();
+            months += d2.getMonth();
+            return months <= 0 ? 0 : months;
+        }
+        function cal() {
+            d1 = new Date($("#datepicker1").val());
+            d2 = new Date($("#datepicker2").val());
+            alert("The difference between two dates is: " + MonthDifference(d1, d2));
+        }
+    </script>
+</head>
+<body>
+    <div>
+        <p>
+            Date1:
+            <input type="text" id="datepicker1"></p>
+        <p>
+            Date2:
+            <input type="text" id="datepicker2"></p>
+        <button id="calculate" onclick="cal()">
+            Calculate
+        </button>
+    </div>
+</body>
+</html>
